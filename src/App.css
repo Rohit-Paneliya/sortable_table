@@ -4,6 +4,7 @@
 
 th,
 td {
+  word-wrap:break-word;
   border: 1px solid black;
 }
 
@@ -30,7 +31,21 @@ th {
 
 .div-table {
   height: 200px;
+  overflow-y: auto;
+}
+
+.div-child-table {
+  margin-top: 100px;
+  height: 200px;
   overflow-y: scroll;
+}
+
+.table-row-clickable {
+  cursor: pointer;
+}
+
+.table-row-clickable:hover {
+  background-color: rgb(210, 210, 210);
 }
 
 /* Style for tooltip */
