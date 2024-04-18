@@ -3,6 +3,7 @@ import { SortButton } from './SortButton'
 import { TableHeader } from './TableHeader'
 import { doSorting } from './Utils'
 import { SortableChildTable } from './SortableChildTable'
+import { Table } from 'react-bootstrap'
 
 export const SortableTable = ({ listOfData, tableHeaderData }) => {
 
@@ -24,7 +25,7 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
     }
 
     const tableHeaders = tableHeaderData.map((column) => {
-        return <th key={column.key}> {column.value} {column.sortable && <SortButton sortOrder={order} onHandleClick={() => changeSort(column.key)} />}</th>
+        return <th key={column.key} className='table-th'> {column.value} {column.sortable && <SortButton sortOrder={order} onHandleClick={() => changeSort(column.key)} />}</th>
     })
 
     const onTableRowClick = (listItem) => {
@@ -64,14 +65,14 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
             {/* Parent Table */}
 
             <div className='div-table'>
-                <table>
-                    <thead>
+                <table className='cache-table'>
+                    <thead className='table-thead'>
                         <tr>
                             {tableHeaders}
                         </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody className='table-tbody'>
                         {tableRowData}
                     </tbody>
                 </table>
