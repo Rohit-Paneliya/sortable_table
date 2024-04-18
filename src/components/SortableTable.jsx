@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
 import { SortButton } from './SortButton'
-import { TableHeader } from './TableHeader'
 import { doSorting } from './Utils'
 import { SortableChildTable } from './SortableChildTable'
 import { Table } from 'react-bootstrap'
@@ -25,7 +24,8 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
     }
 
     const tableHeaders = tableHeaderData.map((column) => {
-        return <th key={column.key} className='table-th'> {column.value} {column.sortable && <SortButton sortOrder={order} onHandleClick={() => changeSort(column.key)} />}</th>
+        //{column.sortable && <SortButton sortOrder={order} onHandleClick={() => changeSort(column.key)} />}
+        return <th key={column.key} className='table-th' onClick={() => changeSort(column.key)}> {column.value} <span style={{float: "right", paddingRight: "8px"}}>&#8645;</span></th>
     })
 
     const onTableRowClick = (listItem) => {
@@ -36,7 +36,7 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
         sortedData().map((listItem) => {
             return (
                 <tr key={listItem.id} className='table-row-clickable' onClick={() => onTableRowClick(listItem)}>
-                    <td>{listItem.id}</td>
+                    <td style={{textAlign: "left", paddingLeft: "8px"}}>{listItem.id}</td>
                     <td className='tooltip'>{listItem.first_name}
                         <span class="tooltiptext">My last name is {listItem.last_name} </span>
                     </td>

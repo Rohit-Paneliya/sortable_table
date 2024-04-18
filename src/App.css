@@ -17,6 +17,12 @@
   border-right: 1px solid white;
   border-collapse: collapse;
   color: white;
+  cursor: pointer;
+}
+
+.table-th:first-child {
+   text-align: left;
+   padding-left: 8px;
 }
 
 td {
