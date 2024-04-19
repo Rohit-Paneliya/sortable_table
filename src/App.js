@@ -1,7 +1,7 @@
 import './App.css';
 import { tableHeadersData } from './components/Constants';
 import { SortableTable } from './components/SortableTable';
-import data from "./data.json";
+import data from "./data_1.json";
 
 function App() {
   return (

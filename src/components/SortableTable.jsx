@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { SortButton } from './SortButton'
 import { doSorting } from './Utils'
 import { SortableChildTable } from './SortableChildTable'
-import { Table } from 'react-bootstrap'
 
 export const SortableTable = ({ listOfData, tableHeaderData }) => {
 
@@ -25,28 +23,56 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
 
     const tableHeaders = tableHeaderData.map((column) => {
         //{column.sortable && <SortButton sortOrder={order} onHandleClick={() => changeSort(column.key)} />}
-        return <th key={column.key} className='table-th' onClick={() => changeSort(column.key)}> {column.value} <span style={{float: "right", paddingRight: "8px"}}>&#8645;</span></th>
+        return <th key={column.key} className='table-th' onClick={() => changeSort(column.key)}> {column.value} <span style={{ float: "right", paddingRight: "8px" }}>&#8645;</span></th>
     })
 
     const onTableRowClick = (listItem) => {
         setParentId(listItem.id)
     }
 
-    const tableRowData =
-        sortedData().map((listItem) => {
-            return (
+    // const tableRowData =
+    //     sortedData().map((listItem) => {
+    //         return (
+    //             <tr key={listItem.id} className='table-row-clickable' onClick={() => onTableRowClick(listItem)}>                    
+    //                 <td style={{textAlign: "left", paddingLeft: "8px"}}>{listItem.id}</td>
+    //                 <td className='tooltip'>{listItem.first_name}
+    //                     <span class="tooltiptext">My last name is {listItem.last_name} </span>
+    //                 </td>
+    //                 <td>{listItem.last_name}</td>
+    //                 <td>{listItem.email}</td>
+    //                 <td>{listItem.gender}</td>
+    //                 <td>{listItem.ip_address}</td>
+    //             </tr>
+    //         )
+    //     })
+
+    const tableRowData = sortedData().map((listItem) => (
+        listItem.email.map((email, index) => (
+            <>
+            {
+                index === 0 ?
                 <tr key={listItem.id} className='table-row-clickable' onClick={() => onTableRowClick(listItem)}>
-                    <td style={{textAlign: "left", paddingLeft: "8px"}}>{listItem.id}</td>
-                    <td className='tooltip'>{listItem.first_name}
+                    <td rowSpan={listItem.email.length} style={{ textAlign: "left", paddingLeft: "8px" }}>{listItem.id}</td>
+                    <td rowSpan={listItem.email.length} className='tooltip'>{listItem.first_name}
                         <span class="tooltiptext">My last name is {listItem.last_name} </span>
                     </td>
-                    <td>{listItem.last_name}</td>
-                    <td>{listItem.email}</td>
-                    <td>{listItem.gender}</td>
-                    <td>{listItem.ip_address}</td>
+                    <td rowSpan={listItem.email.length}>{listItem.last_name}</td>
+                    <td>{email}</td>
+                    <td rowSpan={listItem.email.length}>{listItem.gender}</td>
+                    <td rowSpan={listItem.email.length}>{listItem.ip_address}</td>
                 </tr>
-            )
-        })
+                :
+
+                <tr key={listItem.id} className='table-row-clickable' onClick={() => onTableRowClick(listItem)}>
+                    <td>{email}</td>
+                </tr>
+            }
+            </>
+            
+        ))
+    ))
+
+
 
     return (
         <>
@@ -73,7 +99,14 @@ export const SortableTable = ({ listOfData, tableHeaderData }) => {
                     </thead>
 
                     <tbody className='table-tbody'>
-                        {tableRowData}
+
+                        {
+                            tableRowData
+                            // test
+                        }
+                        {
+                            console.log(tableRowData)
+                        }
                     </tbody>
                 </table>
             </div>
