@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react'
-import { SortButton } from './SortButton'
 import { doSorting } from './Utils'
 import { SortableChildTable } from './SortableChildTable'
-import { Table } from 'react-bootstrap'
 
 export const SortableTable = ({ listOfData, tableHeaderData }) => {
 
