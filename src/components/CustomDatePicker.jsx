@@ -20,6 +20,7 @@ function CustomDatePicker ({ onHandleDateChange })  {
 
   const handleDateChange = (event) => {
     setSelectedDate(new Date(event.target.value));
+    onHandleDateChange(new Date(event.target.value))
   };
 
   return (
