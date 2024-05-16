@@ -1,17 +1,11 @@
 import React from 'react'
-import { SortButton } from './SortButton'
 
-export const TableHeader = ({tableHeadersData, sortOrder, onHandleClick}) => {
-
-    const tableHeaders = tableHeadersData.map((column) => {
-        return <th key={column.key}> {column.value} <SortButton sortOrder={sortOrder} onHandleClick={onHandleClick(column.key)} /></th>
-    })
+export default function TableHeader ({tableHeadersData, onHandleClick})  {
 
     return (
-        <thead>
-            <tr>
-                {tableHeaders}
-            </tr>
-        </thead>
+        tableHeadersData.map((column) => {
+            // return <th key={column.key}> {column.value} <SortButton sortOrder={sortOrder} onHandleClick={onHandleClick(column.key)} /></th>
+            return <th key={column.key} className='table-th' style={{width: "25%"}} onClick={() => onHandleClick(column.key)}> {column.value} <span style={{float: "right", paddingRight: "8px"}}>&#8645;</span></th>
+        })
     )
 }

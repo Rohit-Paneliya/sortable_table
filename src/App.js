@@ -5,6 +5,7 @@ import { SortableTable } from './components/SortableTable';
 import data from "./data.json";
 import axios from 'axios';
 import CustomDatePicker from './components/CustomDatePicker';
+import { SortableTableTemp } from './components/SortableTableTemp';
 
 function App() {
 
@@ -62,7 +63,7 @@ function App() {
         {<CustomDatePicker onHandleDateChange={onDateChange} />}
         {results.loading === true && <h1>Loading....</h1> }
         {results.error === true && <h1>Error: {results.errorMessage}</h1>}
-        {results.loading === false && results.error === false &&  <SortableTable listOfData={data} tableHeaderData= {tableHeadersData}/>        }        
+        {results.loading === false && results.error === false &&  <SortableTableTemp listOfData={data} tableHeaderData= {tableHeadersData}/>        }        
     </div>
   );
 }
