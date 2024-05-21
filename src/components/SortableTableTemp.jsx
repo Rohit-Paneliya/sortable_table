@@ -11,20 +11,20 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
     const [order, setOrder] = useState("asc")
     const [parentId, setParentId] = useState(0)
 
-    const allNames = ["Select"].concat(Array.from(new Set(listOfData.map((rowItem) => {
+    const allNames = Array.from(new Set(listOfData.map((rowItem) => {
         return rowItem.first_name
-    }))).sort())
+    }))).sort()
 
-    const allGenders = ["Select"].concat(Array.from(new Set(listOfData.map((rowItem) => {
+    const allGenders = Array.from(new Set(listOfData.map((rowItem) => {
         return rowItem.gender
-    }))).sort())
+    }))).sort()
 
     //Drop downs states
     const [gender, setGender] = useState("")
     const [genderList, setGenderList] = useState(allGenders)
     const [name, setName] = useState("")
     const [namesList, setNamesList] = useState(allNames)
-    const [dropDownState, setDropDownState] = useState(true) // enable/disable - true means enable
+    const [shouldDisable, setShouldDisable] = useState(false) // enable/disable - true means enable
     
     
     const sortedData = useCallback(() => {
@@ -59,7 +59,7 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
             )
         })
 
-    const onDropDownValueSelected = (selectedValue) => {
+    const onGenderDropDownValueSelected = (selectedValue) => {
         setGender(selectedValue)
         if(selectedValue === "") {
             setNamesList(allNames)
@@ -70,7 +70,7 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
             }).map((rowItem) => {
                 return rowItem.first_name
             })
-            setNamesList(["Select",...dropDownNames])
+            setNamesList(dropDownNames)
         }
         
     }
@@ -78,13 +78,14 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
     const onNameDropDownValueSelected = (selectedValue) => {
         setName(selectedValue)
         if(selectedValue === "") {   
-            setDropDownState(true)
+            setShouldDisable(false)
             setGenderList(allGenders)
             setGender("")
         } else { // select dropdown with single value and disable it.
             const selectedRow = listOfData.filter((rowItem) => rowItem.first_name === selectedValue)            
             setGenderList(Array.from([selectedRow[0].gender]))
-            setDropDownState(false)
+            setGender(selectedRow[0].gender)
+            setShouldDisable(true)
         }        
     }
 
@@ -93,7 +94,7 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
         setGender("")
         setNamesList(allNames)
         setGenderList(allGenders)
-        setDropDownState(true)        
+        setShouldDisable(false)        
     }
 
 
@@ -101,8 +102,8 @@ export const SortableTableTemp = ({ listOfData, tableHeaderData }) => {
         <>            
             <h1>Sortable Table Temp</h1>
 
-            <CustomDropdown options={namesList} onValueSelected={onNameDropDownValueSelected} dropdownState={true} selectedValue={name}  />
-            <CustomDropdown options={genderList} onValueSelected={onDropDownValueSelected} dropdownState={dropDownState} selectedValue={gender}/>
+            <CustomDropdown options={namesList} onValueSelected={onNameDropDownValueSelected} shouldDisable={false} selectedValue={name}  />
+            <CustomDropdown options={genderList} onValueSelected={onGenderDropDownValueSelected} shouldDisable={shouldDisable} selectedValue={gender}/>
 
             {/* <select id="dropdown" value= {name} style={{ margin: "1rem" }}  name="test" onChange={(e) => {
                 onNameDropDownValueSelected(e.target.value)
