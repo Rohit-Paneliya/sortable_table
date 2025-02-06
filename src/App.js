@@ -4,7 +4,7 @@ import { tableHeadersData } from './components/Constants';
 import { SortableTable } from './components/SortableTable';
 import data from "./data.json";
 import axios from 'axios';
-import CustomDatePicker from './components/CustomDatePicker';
+import CustomDatePickerV1 from './components/CustomDatePickerV1';
 import { SortableTableTemp } from './components/SortableTableTemp';
 
 function App() {
@@ -59,11 +59,12 @@ function App() {
 
 
   return (
-    <div className="App">
-        {<CustomDatePicker onHandleDateChange={onDateChange} />}
-        {results.loading === true && <h1>Loading....</h1> }
-        {results.error === true && <h1>Error: {results.errorMessage}</h1>}
-        {results.loading === false && results.error === false &&  <SortableTableTemp listOfData={data} tableHeaderData= {tableHeadersData}/>        }        
+    <div style={{marginLeft: "10rem"}}>
+      <h1>Team Leader Calendar</h1>
+      <CustomDatePickerV1 role="team_leader" /> {/* Role set to team_leader */}
+      
+      <h1>Other Role Calendar</h1>
+      <CustomDatePickerV1 role="other_role" /> {/* Role set to other_role */}
     </div>
   );
 }
