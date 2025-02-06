@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import styled from 'styled-components';
@@ -48,16 +48,13 @@ const CustomDatePickerV1 = ({ role }) => {
 
   // Custom style overrides
   const CustomDatePickerWrapper = styled.div`
-    .published {
-      background-color: green !important;
-      color: white !important;
-      border-radius: 50% !important;
+    .published {      
+      color: black !important;      
     }
     .unpublished {
-      color: black !important;
+      color: darkgrey !important;
     }
-    .disabled {
-    //   background-color: grey !important;
+    .disabled {    
       color: grey !important;
       pointer-events: none;
     }
@@ -65,22 +62,29 @@ const CustomDatePickerV1 = ({ role }) => {
       background-color: darkblue !important; /* Custom color for selected date */
       color: white !important; /* Custom text color for selected date */
       border-radius: 50% !important;
-    }
-    .react-datepicker__day--selected:hover {
-      background-color: blue !important; /* Custom hover effect */
-      border-radius: 50% !important;
-    }
+    }      
   `;
+
+  const ExampleCustomInput = forwardRef(
+    ({ value, onClick, className }, ref) => (
+      <button className={className} onClick={onClick} ref={ref}>
+        {value}
+      </button>
+    ),
+  );
 
   return (
     <CustomDatePickerWrapper>
       <DatePicker
         todayButton= "Today"
         selected={startDate}
+        openToDate={startDate}
+        dateFormat={'MM/dd/yyyy'}
         onChange={(date) => setStartDate(date)}
         calendarClassName="custom-calendar"
         dayClassName={(date) => customDayClassName(date)}
-        maxDate={new Date()}
+        maxDate={new Date()}        
+        customInput={<ExampleCustomInput className="example-custom-input" />}
       />
     </CustomDatePickerWrapper>
   );
